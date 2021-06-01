@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import LeftSide from './LeftSide'
+import Main from './Main'
+import RightSide from './RightSide'
 function Home() {
     return (
         <Container>
@@ -13,9 +16,9 @@ function Home() {
             </Section>
 
             <Layout>
-                <div>Left Side</div>
-                <div>Middle</div>
-                <div> Right Side</div>
+                <LeftSide />
+                <Main />
+                <RightSide />
             </Layout>
 
         </Container>
@@ -61,7 +64,7 @@ const Section = styled.section`
 `
 const Layout = styled.div`
     display: grid;
-    grid-template-areas: 'Leftside main rightside';
+    grid-template-areas: 'leftside main rightside';
     grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
     column-gap: 25px;
     row-gap: 25px;
