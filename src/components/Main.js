@@ -51,6 +51,36 @@ const Main = () => {
                             <img src="/images/shared-image.jpg" alt="" />
                         </a>
                     </SharedImg>
+                    <SocialCounts>
+                        <li>
+                            <button>
+                                <img src="https://static-exp1.licdn.com/sc/h/d310t2g24pvdy4pt1jkedo4yb" alt="" />
+                                <img src="https://static-exp1.licdn.com/sc/h/5thsbmikm6a8uov24ygwd914f" alt="" />
+                                <span>75</span>
+                            </button>
+                        </li>
+                        <li>
+                            2 comments
+                        </li>
+                    </SocialCounts>
+                    <SocialAction>
+                        <button>
+                            <img src="/images/like-icon.png" alt="" />
+                            <span>Like</span>
+                        </button>
+                        <button>
+                            <img src="/images/comment-icon.png" alt="" />
+                            <span>Comments</span>
+                        </button>
+                        <button>
+                            <img src="/images/share-icon.png" alt="" />
+                            <span>Share</span>
+                        </button>
+                        <button>
+                            <img src="/images/send-icon.png" alt="" />
+                            <span>Send</span>
+                        </button>
+                    </SocialAction>
                 </Article>
             </div>
         </Container>
@@ -207,4 +237,41 @@ const SharedImg = styled.div`
         height: 100%;
     }
 `
-
+const SocialCounts = styled.ul`
+    line-height: 1.3;
+    display: flex;
+    align-items: flex-start;
+    overflow: auto;
+    margin: 0 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid #e9e5df;
+    list-style: none;
+    li {
+        margin-right: 5px;
+        font-size: 12px;
+        button {
+            display: flex;
+        }
+    }
+`
+const SocialAction = styled.div`
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
+    min-height: 40px;
+    padding: 4px 8px;
+    button {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px;
+        height: 40px;
+        color: #0a66c2;
+        @media (min-width: 768px) {
+            margin-left: 8px;
+        }
+        img {
+            width: 25px;
+        }
+    }
+`
