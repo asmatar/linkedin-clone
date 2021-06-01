@@ -1,5 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+
 function Login() {
     return (
         <Container>
@@ -27,8 +29,18 @@ function Login() {
         </Container>
     )
 }
+const mapstateToprops = (state) => {
+    return {
 
-export default Login
+    }
+}
+
+const mapDisatchToProps = (dispatch) => {
+    return {
+
+    }
+}
+export default connect(mapstateToprops,mapDisatchToProps )(Login)
 
 const Container = styled.div`
     padding: 0px;
