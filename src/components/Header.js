@@ -1,7 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
 
-function Header() {
+function Header({user}) {
     return (
         <Container>
             <Content>
@@ -57,7 +58,14 @@ function Header() {
 
                         <User>
                             <a>
+                                {/* if the user exist i wanna his photo, if not the standard photo */}
+                                { user && user.photoURL 
+                                ? 
+                                (<img src={user.photoURL} alt="" />) 
+                                :
+                                (
                                 <img src="/images/user.svg" alt="" />
+                                )}
                                 <span>Me</span>
                                 <img src="/images/down-icon.svg" alt="" />
                             </a>
@@ -69,8 +77,9 @@ function Header() {
                         <Work>
                             <a>
                                 <img src="/images/nav-work.svg" alt="" />
-                                <span>Work</span>
+                                <span>Work
                                 <img src="/images/down-icon.svg" alt="" />
+                                </span>
                             </a>
                         </Work>
                     </NavListWrap>
@@ -79,8 +88,12 @@ function Header() {
         </Container>
     )
 }
-
-export default Header
+const mapStateToprops = (state) => {
+    return {
+        user: state.userState.user
+    }
+}
+export default connect(mapStateToprops )(Header)
 
 const Container = styled.div`
     background-color: white;
