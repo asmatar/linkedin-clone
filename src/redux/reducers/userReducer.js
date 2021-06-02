@@ -12,8 +12,7 @@ const userReducer = (state= InitialState, action) => {
             return {
                 ...state,
                 user: action.user
-            }
-            
+            }   
             default:
                 return state
             }

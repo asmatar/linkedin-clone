@@ -27,7 +27,7 @@ function Login({signIn, user}) {
                 </Hero>
                 <Form>
                     {/* Login 1 : on click we callback a function sign in */}
-                    <Google onClick={() => signIn( console.log('sign in 0, dans le login au click'))}>
+                    <Google onClick={() => signIn()}>
                         <img src="/images/google.svg" alt="" />
                         sign in with google
                     </Google>
@@ -45,7 +45,6 @@ const mapStateToprops = (state) => {
 const mapDisatchToProps = (dispatch) => {
     return {
         signIn : () => {
-            console.log('sign in 1, dans le login connecter')
             dispatch(signInAPI())
         }
     }
