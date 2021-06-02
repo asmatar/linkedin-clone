@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { signOutAPI } from '../redux/actions';
 
-function Header({user}) {
+function Header({user, signOut}) {
     return (
         <Container>
             <Content>
@@ -56,7 +57,7 @@ function Header({user}) {
                             </a>
                         </NavList>
 
-                        <User>
+                        <User >
                             <a>
                                 {/* if the user exist i wanna his photo, if not the standard photo */}
                                 { user && user.photoURL 
@@ -69,8 +70,8 @@ function Header({user}) {
                                 <span>Me</span>
                                 <img src="/images/down-icon.svg" alt="" />
                             </a>
-                            <SignOut>
-                                <a> sign out</a>
+                            <SignOut onClick= {()=>signOut()}>
+                                <a > sign out</a>
                             </SignOut>
                         </User>
 
@@ -88,12 +89,20 @@ function Header({user}) {
         </Container>
     )
 }
-const mapStateToprops = (state) => {
+const mapStateToProps = (state) => {
     return {
         user: state.userState.user
     }
 }
-export default connect(mapStateToprops )(Header)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signOut : () => {
+            console.log('signout')
+            dispatch(signOutAPI())
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps )(Header)
 
 const Container = styled.div`
     background-color: white;
@@ -227,7 +236,7 @@ const SignOut = styled.div`
     transition-duration: 167ms;
     display: none;
     text-align: center;
-   
+   cursor: pointer;
 `
 const User = styled(NavList)`
     a > svg {

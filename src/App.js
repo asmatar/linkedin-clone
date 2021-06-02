@@ -30,12 +30,14 @@ function App({getUserAuth}) {
   );
 }
 
-const mapStateToprops = (state) => {
-
+const mapStateToProps = (state) => {
+  return {
+    
+  }
 }
 const mapDisatchToProps = (dispatch) => {
   return {
     getUserAuth: () => dispatch(getUserAuth())
   }
 }
-export default connect(mapStateToprops,mapDisatchToProps )(App);
+export default connect(mapStateToProps, mapDisatchToProps )(App);

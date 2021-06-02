@@ -36,20 +36,20 @@ function Login({signIn, user}) {
         </Container>
     )
 }
-const mapStateToprops = (state) => {
+const mapStateToProps = (state) => {
     return {
         user: state.userState.user
     }
 }
 // Login 3 : sign in, callback another function 'signInAPI' ( action creator)
-const mapDisatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         signIn : () => {
             dispatch(signInAPI())
         }
     }
 }
-export default connect(mapStateToprops,mapDisatchToProps )(Login)
+export default connect(mapStateToProps,mapDispatchToProps )(Login)
 
 const Container = styled.div`
     padding: 0px;
