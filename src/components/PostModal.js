@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
 function PostModal({showModal, handleClick}) {
     // state to catch the inputarea value
     const [editorText, setEditorText] = useState('')
     const [shareImage, setShareImage] = useState('')
+    const [videoLink, setVideoLink] = useState('')
 
     const handleChange = (event) => {
         // image : if no image or undifined, show error message
@@ -64,6 +66,15 @@ function PostModal({showModal, handleClick}) {
                                 </label>
                             </p>
                             {shareImage && <img src={URL.createObjectURL(shareImage)} alt="" /> }
+                            <>
+                            <input type="text" placeholder=' please input a video-link'
+                            value={videoLink}
+                            onChange={event => {setVideoLink(event.target.value)}}
+                            />
+                            {
+                                videoLink && <ReactPlayer width={'100%'} url={videoLink} />
+                            }
+                            </>
                         </UploadImage>
 
                     </Editor>
