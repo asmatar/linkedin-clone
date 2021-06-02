@@ -115,7 +115,7 @@ const Main = ({user, loading, getArticles, articles}) => {
                             </button>
                         </li>
                         <li>
-                            2 comments
+                            <a>{article.comments}</a>
                         </li>
                     </SocialCounts>
                     <SocialAction>
@@ -325,6 +325,8 @@ const SocialCounts = styled.ul`
         font-size: 12px;
         button {
             display: flex;
+            border: none;
+            background-color: white;
         }
     }
 `
@@ -341,6 +343,9 @@ const SocialAction = styled.div`
         padding: 8px;
         height: 40px;
         color: #0a66c2;
+        border: none;
+        background-color: white;
+
         @media (min-width: 768px) {
             margin-left: 8px;
         }
