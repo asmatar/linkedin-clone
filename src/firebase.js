@@ -9,13 +9,13 @@ var firebaseConfig = {
     appId: "1:878655239386:web:20d054043d7f90866961e3"
 };
 
-const firebaseApp = firebase.initializaApp(firebaseConfig)
+const firebaseApp = firebase.initializeApp(firebaseConfig)
 
-const db = firebaseApp.firebase()
+const db = firebaseApp.firestore()
 
 const auth = firebase.auth()
 
-const provider = new firebase.auth.googleAuthProvider()
+const provider = new firebase.auth.GoogleAuthProvider()
 // to export import photos 
 const storage = firebase.storage()
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { signInAPI } from '../redux/actions';
 
-function Login() {
+//Login 2 : we pass it on props
+function Login({signIn}) {
     return (
         <Container>
             <Nav>
@@ -20,7 +22,8 @@ function Login() {
                     <img src="/images/login-hero.svg" alt="login hero" />
                 </Hero>
                 <Form>
-                    <Google>
+                    {/* Login 1 : on click we callback a function sign in */}
+                    <Google onClick={() => signIn( console.log('sign in 0, dans le login au click'))}>
                         <img src="/images/google.svg" alt="" />
                         sign in with google
                     </Google>
@@ -29,18 +32,21 @@ function Login() {
         </Container>
     )
 }
-const mapstateToprops = (state) => {
+const mapStateToprops = (state) => {
     return {
 
     }
 }
-
+// Login 3 : sign in, callback another function 'signInAPI' ( action creator)
 const mapDisatchToProps = (dispatch) => {
     return {
-
+        signIn : () => {
+            console.log('sign in 1, dans le login connecter')
+            dispatch(signInAPI())
+        }
     }
 }
-export default connect(mapstateToprops,mapDisatchToProps )(Login)
+export default connect(mapStateToprops,mapDisatchToProps )(Login)
 
 const Container = styled.div`
     padding: 0px;

@@ -1,12 +1,22 @@
+import { SET_USER } from '../actions';
+
 const InitialState = {
     user: null,
 };
 
 const userReducer = (state= InitialState, action) => {
+    console.log(InitialState)
+    // login 5 . take the action we've imported and change the state
     switch (action.type){
-        default:
-            return state
-    }
+        case SET_USER:
+            return {
+                ...state,
+                user: action.user
+            }
+            
+            default:
+                return state
+            }
 }
 
 export default userReducer;
