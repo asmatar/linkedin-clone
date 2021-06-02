@@ -1,5 +1,4 @@
-import { auth, provider } from '../../firebase';
-
+import db, { auth, provider, storage } from '../../firebase';
 export const SET_USER = 'SET_USER';
 // login 4 : implémentation setPalad which goes into the reducer
 export const setUser = (payload) => {
@@ -20,7 +19,7 @@ export function signInAPI() {
         }).catch ((error) => alert(error.message))
     }
 }
-
+// function n the useEffect
 export function getUserAuth () {
     return (dispatch) => {
         auth.onAuthStateChanged(async (user) => {
@@ -30,7 +29,7 @@ export function getUserAuth () {
         })
     }
 }
-
+// function to signout
 export function signOutAPI () {
     return (dispatch) => {
         auth.signOut().then(()=> {
@@ -40,3 +39,35 @@ export function signOutAPI () {
         })
     }
 }
+// function to upload photo in fireaseStorage
+export function postArticleAPI (payload) {
+    return (dispatch) => {
+        if (payload.image !== ''){
+           const upload = storage.ref(`image/${payload.image.name}`).put(payload.image);
+            upload.on('state_changed', (snapshot) => { 
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log(`progress: ${progress}%`);
+                    if (snapshot.state === 'RUNNING'){
+                        console.log(`progress: ${progress}%`);
+                    }
+            }, error => console.log(error.code),
+            async () => {
+                const downloadURL = await upload.snapshot.ref.getDownloadURL();
+                db.collection('article').add({
+                    actor: {
+                        description: payload.user.email,
+                        title: payload.user.displayName,
+                        date: payload.timestamp,
+                        image: payload.user.photoURL,
+                    },
+                    video: payload.video,
+                    haredImg: downloadURL,
+                    comments: 0,
+                    description: payload.description
+                })
+            }
+            );
+        }
+    }
+}
+

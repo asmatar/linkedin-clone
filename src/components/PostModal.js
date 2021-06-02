@@ -1,9 +1,11 @@
+import firebase from 'firebase';
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { postArticleAPI } from '../redux/actions';
 
-function PostModal({showModal, handleClick, user}) {
+function PostModal( {showModal, handleClick, user, postArticlee }) {
     // state to catch the inputarea value
     const [editorText, setEditorText] = useState('')
     const [shareImage, setShareImage] = useState('')
@@ -27,7 +29,23 @@ function PostModal({showModal, handleClick, user}) {
         setVideoLink('');
         setAssetArea(area);
     }
+    const postArticle = (event) => { 
+        
+        event.preventDefault();
+        if(event.target !== event.currentTarget){
+            return;
+        }
 
+        const payload = {
+            image: shareImage,
+            video: videoLink,
+            user: user,
+            description: editorText,
+            timestamp: firebase.firestore.Timestamp.now()
+        };
+        postArticlee(payload);
+        reset(event)
+    }
     // modal 5: we execute reset => éxécute handleclick, and refresh the input
     const reset = (event) => {
         setEditorText('');
@@ -35,6 +53,7 @@ function PostModal({showModal, handleClick, user}) {
         setVideoLink('');
         handleClick(event)
     }
+
 
     return (
         <>
@@ -118,6 +137,7 @@ function PostModal({showModal, handleClick, user}) {
                     </ShareComment>
                     <PostButton
                     disabled={!editorText ? true : false}
+                    onClick={(event) => postArticle(event)}
                     >
                         Post
                     </PostButton>
@@ -136,7 +156,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-     
+     postArticlee: (payload) => {
+         dispatch(postArticleAPI(payload))
+     }
     }
 }
 
