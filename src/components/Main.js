@@ -1,14 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import PostModal from './PostModal'
 
 const Main = () => {
+
+    // modal 0: state for the modal, close
+    const[showModal, setShowModal] =useState('close')
+
+    // modal 2. On click we exécute this code
+    const handleClick = (event) => {
+        event.preventDefault();
+        // if showMdal is 'open' we change the value to 'close'
+        switch(showModal) {
+            case 'open':
+            setShowModal('close');
+            break;
+               // if showMdal is 'close' we change the value to 'open'
+            case 'close':
+            setShowModal('open');
+            break;
+            // by default it's 'close'
+            default:
+            setShowModal('close')
+            break
+        }
+    }
+
     return (
         <Container>
             <ShareBox> Share 
             <div>
                 <img src="/images/user.svg" alt="" />
-                <button>Start a post</button>
+                <button
+                // modal 1 : on click we call handleclick
+                onClick = {handleClick}
+                >Start a post</button>
             </div>
             <div>
                 <button>
@@ -84,7 +110,8 @@ const Main = () => {
                     </SocialAction>
                 </Article>
             </div>
-            <PostModal />
+            {/* modal 3 : pass the props into the modal */}
+            <PostModal showModal={showModal} handleClick={handleClick} />
         </Container>
     )
 }

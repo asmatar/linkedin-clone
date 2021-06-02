@@ -1,16 +1,25 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-function PostModal() {
-
+function PostModal({showModal, handleClick}) {
+    // state to catch the inputarea value
     const [editorText, setEditorText] = useState('')
+    // modal 5: we execute reset => éxécute handleclick, and refresh the input
+    const reset = (event) => {
+        setEditorText('');
+        handleClick(event)
+    }
 
     return (
+        <>
+        {/* modal 6 : ONLY if showModal is 'open' we show the code */}
+        { showModal === 'open' &&
         <Container>
             <Content>
                 <Header>
                     <h2>create a post</h2>
-                    <button>
+                    {/* modal 4 : on click we callback reset */}
+                    <button onClick={(event) => reset(event)}>
                         <img src="/images/close-icon.png" alt="" />
                     </button>
                 </Header>
@@ -50,6 +59,8 @@ function PostModal() {
                 </ShareCreation>
             </Content>
         </Container>
+        }
+        </>
     )
 }
 
