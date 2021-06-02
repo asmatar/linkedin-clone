@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import styled from 'styled-components';
 import { signInAPI } from '../redux/actions';
 
 //Login 2 : we pass it on props
-function Login({signIn}) {
+function Login({signIn, user}) {
     return (
         <Container>
+            {
+                user && <Redirect to = '/home' />
+            }
             <Nav>
                 <a href="/">
                     <img src="/images/login-logo.svg" alt="" />
@@ -34,7 +38,7 @@ function Login({signIn}) {
 }
 const mapStateToprops = (state) => {
     return {
-
+        user: state.userState.user
     }
 }
 // Login 3 : sign in, callback another function 'signInAPI' ( action creator)
