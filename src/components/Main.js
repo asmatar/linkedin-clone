@@ -85,7 +85,7 @@ const Main = ({user, loading, getArticles, articles}) => {
                             <div>
                                 <span>{article.actor.title}</span>
                                 <span>{article.actor.description}</span>
-                                <span>{article.actor.date.toDate().toLocalDateString()}</span>
+                                <span>{article.actor.date.toDate().toLocaleDateString()}</span>
                             </div>
                         </a>
                         <button>
@@ -142,7 +142,7 @@ const Main = ({user, loading, getArticles, articles}) => {
             {/* modal 3 : pass the props into the modal */}
             <PostModal showModal={showModal} handleClick={handleClick} />
         </Container>
-        )}
+         )} 
         </>
     )
 }
