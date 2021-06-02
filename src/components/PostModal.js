@@ -7,6 +7,8 @@ function PostModal({showModal, handleClick}) {
     const [editorText, setEditorText] = useState('')
     const [shareImage, setShareImage] = useState('')
     const [videoLink, setVideoLink] = useState('')
+    // conditional input video-image 0: state which change the render
+    const [assetArea, setAssetArea] = useState('')
 
     const handleChange = (event) => {
         // image : if no image or undifined, show error message
@@ -18,10 +20,18 @@ function PostModal({showModal, handleClick}) {
         // if no error actualize the image value in the state
         setShareImage(image)
     }
+    // conditional input video-image 2: we pass the value 'image' or 'video' to setAssetArea which change the property assetArea in the state
+    const switchAssetArea = (area) => {
+        setShareImage('');
+        setVideoLink('');
+        setAssetArea(area);
+    }
 
     // modal 5: we execute reset => éxécute handleclick, and refresh the input
     const reset = (event) => {
         setEditorText('');
+        setShareImage('');
+        setVideoLink('');
         handleClick(event)
     }
 
@@ -50,7 +60,8 @@ function PostModal({showModal, handleClick}) {
                         value = {editorText}
                         onChange = {(event) =>setEditorText(event.target.value) }
                         />
-
+                         {/* conditional input video-image 3: if the value is 'image' show this */}
+                        { assetArea === 'image' ?
                         <UploadImage>
                             <input 
                             type="file" 
@@ -66,25 +77,30 @@ function PostModal({showModal, handleClick}) {
                                 </label>
                             </p>
                             {shareImage && <img src={URL.createObjectURL(shareImage)} alt="" /> }
+                            </UploadImage>
+                            // if not and the value is 'media' show that
+                            :
+                            assetArea === 'media' &&
                             <>
                             <input type="text" placeholder=' please input a video-link'
                             value={videoLink}
                             onChange={event => {setVideoLink(event.target.value)}}
                             />
                             {
-                                videoLink && <ReactPlayer width={'100%'} url={videoLink} />
+                                videoLink && (<ReactPlayer width={'100%'} url={videoLink} />)
                             }
                             </>
-                        </UploadImage>
+                        }
 
                     </Editor>
                 </SharedContent>
                 <ShareCreation>
                     <AttachAssets>
-                        <AssetButton>
+                        {/* conditional input video-image 1: on click we callback the function switchAssetArea passing the value 'image' or video' */}
+                        <AssetButton onClick={()=> switchAssetArea('image')}>
                             <img src="/images/photo-icon.png" alt="" />
                         </AssetButton>
-                        <AssetButton>
+                        <AssetButton onClick={()=> switchAssetArea('media')}>
                             <img src="/images/assets-video.jpg" alt="" />
                         </AssetButton>
                     </AttachAssets>
