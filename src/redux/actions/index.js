@@ -1,5 +1,23 @@
 import db, { auth, provider, storage } from '../../firebase';
 export const SET_USER = 'SET_USER';
+export const SET_LOADING_STATUS = 'SET_LOADING_STATUS';
+export const GET_ARTICLES = 'GET_ARTICLES';
+
+//
+export const getArticles = (payload) => {
+    return {
+        type: 'GET_ARTICLES',
+        payload: payload
+    }
+}
+// function to set up the loading
+export const setLoading = (status) => {
+    return {
+        type: 'SET_LOADING_STATUS',
+        status: status
+    }
+}
+
 // login 4 : implémentation setPalad which goes into the reducer
 export const setUser = (payload) => {
     return {
@@ -42,6 +60,8 @@ export function signOutAPI () {
 // function to upload photo in fireaseStorage
 export function postArticleAPI (payload) {
     return (dispatch) => {
+        dispatch(setLoading(true));
+
         if (payload.image !== ''){
            const upload = storage.ref(`image/${payload.image.name}`).put(payload.image);
             upload.on('state_changed', (snapshot) => { 
@@ -65,6 +85,7 @@ export function postArticleAPI (payload) {
                     comments: 0,
                     description: payload.description
                 })
+                dispatch(setLoading(false))
             }
             );
         } else if (payload.video) {
@@ -80,7 +101,20 @@ export function postArticleAPI (payload) {
                 comments: 0,
                 description: payload.description
             })
+            dispatch(setLoading(false))
         }
     }
 }
 
+export function getArticlesAPI () {
+    return (dispatch) => {
+        let payload;
+
+        db.collection('articles')
+        .orderBy('actor.date', 'desc')
+        .onSnapshot((snapshot)=> {
+            payload = snapshot.docs.map((doc)=> doc.data());
+            dispatch(getArticles(payload))
+        })
+    }
+}

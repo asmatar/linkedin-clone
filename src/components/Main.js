@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { getArticlesAPI } from '../redux/actions';
 import PostModal from './PostModal';
-
-
-const Main = () => {
+import ReactPlayer from 'react-player'
+const Main = ({user, loading, getArticles, articles}) => {
 
     // modal 0: state for the modal, close
     const[showModal, setShowModal] =useState('close')
+
+    useEffect(()=> {
+        getArticles()
+    }, [])
 
     // modal 2. On click we exécute this code
     const handleClick = (event) => {
@@ -28,13 +33,23 @@ const Main = () => {
     }
 
     return (
+        <>
+        {
+            articles.length === 0 ? (
+            <p>there are no articles</p>)
+            :(
         <Container>
-            <ShareBox> Share 
-            <div>
+            <ShareBox>  
+              <div>
+                { user && user.photoURL ?
+                <img src={user.photoURL} alt="" />
+                :
                 <img src="/images/user.svg" alt="" />
+            }
                 <button
                 // modal 1 : on click we call handleclick
                 onClick = {handleClick}
+                disabled={loading ? true : false}
                 >Start a post</button>
             </div>
             <div>
@@ -56,15 +71,21 @@ const Main = () => {
                 </button>
             </div>
             </ShareBox>
-            <div>
-                <Article>
+            <Content>
+                {
+                    loading && <img src="/images/Spinner-5.gif" alt="" />
+                }
+                {
+                    articles.length > 0 && articles.map((article, key) => (
+           
+                <Article key={key}>
                     <SharedActor>
                         <a>
-                            <img src="/images/user.svg" alt="" />
+                            <img src={article.actor.image} alt="" />
                             <div>
-                                <span>title</span>
-                                <span>Info</span>
-                                <span>Date</span>
+                                <span>{article.actor.title}</span>
+                                <span>{article.actor.description}</span>
+                                <span>{article.actor.date.toDate().toLocalDateString()}</span>
                             </div>
                         </a>
                         <button>
@@ -72,11 +93,17 @@ const Main = () => {
                         </button>
                     </SharedActor>
                     <Description>
-                        Description
+                    {article.description}
                     </Description>
                     <SharedImg>
                         <a>
-                            <img src="/images/shared-image.jpg" alt="" />
+                        {
+                           !article.sharedImg && article.video ? <ReactPlayer width={'100%'} url={article.video} />
+                       
+                        : (
+                            article.sharedImg && <img src={article.sharedImg} alt="" />
+                        ) 
+                        }
                         </a>
                     </SharedImg>
                     <SocialCounts>
@@ -110,14 +137,30 @@ const Main = () => {
                         </button>
                     </SocialAction>
                 </Article>
-            </div>
+                    ))}
+            </Content>
             {/* modal 3 : pass the props into the modal */}
             <PostModal showModal={showModal} handleClick={handleClick} />
         </Container>
+        )}
+        </>
     )
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.userState.user,
+        loading: state.articleState.loading,
+        articles: state.articleState.articles
+    }
+}
 
-export default Main 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getArticles: () => dispatch(getArticlesAPI())
+    }
+}
+
+export default connect (mapStateToProps,mapDispatchToProps )(Main) 
 
 
 const Container = styled.div`
@@ -304,5 +347,11 @@ const SocialAction = styled.div`
         img {
             width: 25px;
         }
+    }
+`
+const Content = styled.div`
+    text-align: center;
+    & > img {
+        width: 30px;
     }
 `
