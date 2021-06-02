@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-function PostModal({showModal, handleClick}) {
+function PostModal({showModal, handleClick, user}) {
     // state to catch the inputarea value
     const [editorText, setEditorText] = useState('')
     const [shareImage, setShareImage] = useState('')
@@ -50,7 +51,11 @@ function PostModal({showModal, handleClick}) {
                 </Header>
                 <SharedContent>
                     <UserInfo>
+                        { 
+                        user.photoURL ?  (<img src={user.photoURL} alt="" />)
+                        : 
                         <img src="/images/user.svg" alt="" />
+                        }
                         <span>name</span>
                     </UserInfo>
                     <Editor>
@@ -123,8 +128,19 @@ function PostModal({showModal, handleClick}) {
         </>
     )
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.userState.user
+    }
+}
 
-export default PostModal
+const mapDispatchToProps = (dispatch) => {
+    return {
+     
+    }
+}
+
+export default connect (mapStateToProps,mapDispatchToProps )(PostModal)
 
 const Container = styled.div`
     position: fixed;

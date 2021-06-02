@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import PostModal from './PostModal'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import PostModal from './PostModal';
+
 
 const Main = () => {
 
@@ -116,7 +117,8 @@ const Main = () => {
     )
 }
 
-export default Main
+export default Main 
+
 
 const Container = styled.div`
     grid-area: main;
