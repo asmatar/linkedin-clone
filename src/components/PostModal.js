@@ -4,6 +4,19 @@ import styled from 'styled-components';
 function PostModal({showModal, handleClick}) {
     // state to catch the inputarea value
     const [editorText, setEditorText] = useState('')
+    const [shareImage, setShareImage] = useState('')
+
+    const handleChange = (event) => {
+        // image : if no image or undifined, show error message
+        const image = event.target.files[0]
+        if (image === '' || image=== undefined) {
+            alert(`not an image, the file is a ${typeof image}`)
+            return
+        } 
+        // if no error actualize the image value in the state
+        setShareImage(image)
+    }
+
     // modal 5: we execute reset => éxécute handleclick, and refresh the input
     const reset = (event) => {
         setEditorText('');
@@ -34,7 +47,25 @@ function PostModal({showModal, handleClick}) {
                         autoFocus={true}
                         value = {editorText}
                         onChange = {(event) =>setEditorText(event.target.value) }
-                        ></textarea>
+                        />
+
+                        <UploadImage>
+                            <input 
+                            type="file" 
+                            accept='images/gif, image/jpeg, image/png ' 
+                            name='image' 
+                            id='file' 
+                            style={{display: 'none'}}
+                            onChange={handleChange}
+                            />
+                            <p>
+                                <label htmlFor="file">
+                                    Select an image to share
+                                </label>
+                            </p>
+                            {shareImage && <img src={URL.createObjectURL(shareImage)} alt="" /> }
+                        </UploadImage>
+
                     </Editor>
                 </SharedContent>
                 <ShareCreation>
@@ -197,5 +228,11 @@ const Editor = styled.div`
         height: 35px;
         font-size: 16px;
         margin-bottom: 20px;
+    }
+`
+const UploadImage = styled.div`
+    text-align: center;
+    img {
+        width: 100%;
     }
 `
