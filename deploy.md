@@ -7,3 +7,4 @@
     - enter
     - enter
 To update to the latest version using npm, run ***npm install -g firebase-tools ***
+3. firebase deploy

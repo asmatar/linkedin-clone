@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { getArticlesAPI } from '../redux/actions';
 import PostModal from './PostModal';
-import ReactPlayer from 'react-player'
 const Main = ({user, loading, getArticles, articles}) => {
 
     // modal 0: state for the modal, close
@@ -98,10 +98,11 @@ const Main = ({user, loading, getArticles, articles}) => {
                     <SharedImg>
                         <a>
                         {
-                           !article.sharedImg && article.video ? <ReactPlayer width={'100%'} url={article.video} />
-                       
+                            console.log(article),
+                           !article.haredImg && article.video ? <ReactPlayer width={'100%'} url={article.video} />
                         : (
-                            article.sharedImg && <img src={article.sharedImg} alt="" />
+                            console.log(article.sharedImg),
+                            article.haredImg && <img src={article.haredImg} alt="" />
                         ) 
                         }
                         </a>

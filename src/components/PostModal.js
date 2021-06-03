@@ -54,7 +54,7 @@ function PostModal( {showModal, handleClick, user, postArticlee }) {
         handleClick(event)
     }
 
-
+console.log(postArticlee)
     return (
         <>
         {/* modal 6 : ONLY if showModal is 'open' we show the code */}
