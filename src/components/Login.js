@@ -134,25 +134,37 @@ const Hero = styled.div`
     color: #2977c9;
     font-weight: 200;
     line-height: 70px;
+    @media (max-width:1030px) and (min-width:769px) {
+        padding-bottom: 0;
+        width: 55%;
+        font-size: 50px;
+        color: #2977c9;
+        font-weight: 200;
+        line-height: 70px;
+    } 
     @media (max-width: 768px) {
       text-align: center;
-      font-size: 20px;
+      font-size: 25px;
       width: 100%;
       line-height: 2;
     }
   }
-  img {
+  img { 
     /* z-index: -1; */
     width: 700px;
     height: 670px;
     position: absolute;
     bottom: -2px;
-    right: -150px;
+    right: -50px;
     @media (max-width: 768px) {
       top: 230px;
       width: initial;
       position: initial;
       height: initial;
+    /* top: 230px;
+      width: initial;
+      position: initial;
+      height: initial;  */
     }
   }
 `;
@@ -161,7 +173,7 @@ const Form = styled.div`
   margin-top: 100px;
   width: 408px;
   @media (max-width: 768px) {
-    margin-top: 20px;
+    margin: 20px auto 0;
   }
 `;
 
