@@ -6,6 +6,7 @@ import { getArticlesAPI } from '../redux/actions';
 import PostModal from './PostModal';
 const Main = ({user, loading, getArticles, articles}) => {
 
+
     // modal 0: state for the modal, close
     const[showModal, setShowModal] =useState('close')
 
@@ -98,10 +99,8 @@ const Main = ({user, loading, getArticles, articles}) => {
                     <SharedImg>
                         <a>
                         {
-                            console.log(article),
                            !article.haredImg && article.video ? <ReactPlayer width={'100%'} url={article.video} />
                         : (
-                            console.log(article.sharedImg),
                             article.haredImg && <img src={article.haredImg} alt="" />
                         ) 
                         }
@@ -140,6 +139,7 @@ const Main = ({user, loading, getArticles, articles}) => {
                 </Article>
                     ))}
             </Content>
+            
             {/* modal 3 : pass the props into the modal */}
             <PostModal showModal={showModal} handleClick={handleClick} />
         </Container>
@@ -166,6 +166,8 @@ export default connect (mapStateToProps,mapDispatchToProps )(Main)
 
 const Container = styled.div`
     grid-area: main;
+    position: relative;
+    /* width: 538px; */
 `
 const CommonCard = styled.div`
     text-align: center;

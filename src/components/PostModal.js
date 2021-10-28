@@ -53,8 +53,6 @@ function PostModal( {showModal, handleClick, user, postArticlee }) {
         setVideoLink('');
         handleClick(event)
     }
-
-console.log(postArticlee)
     return (
         <>
         {/* modal 6 : ONLY if showModal is 'open' we show the code */}
@@ -75,7 +73,7 @@ console.log(postArticlee)
                         : 
                         <img src="/images/user.svg" alt="" />
                         }
-                        <span>name</span>
+                        <span>{user.displayName}</span>
                     </UserInfo>
                     <Editor>
                         <textarea 
@@ -266,14 +264,14 @@ const AttachAssets = styled.div`
 const ShareComment = styled.div`
     padding-left: 8px;
     margin-right: auto;
-    border-left: 1px solid rgba(0,0,0,0.15)
+    border-left: 1px solid rgba(0,0,0,0.15);
 `
 const PostButton = styled.button`
     min-width: 60px;
     border-radius: 20px;
     padding-left: 16px;
     padding-right: 16px;
-    background: ${props => props.disabled ? 'rgba(0,0,0,0.8)' : '#0a66c2'};
+    background: ${props => props.disabled ? 'rgba(137,196,244,0.8)' : '#0a66c2'};
     color: ${props => props.disabled ? 'rgba(1,1,1,0.2)' :  "white"};
 
     &:hover {

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 
 const RightSide = () => {
+  
     return (
         <Container>
             <FollowCard>
@@ -51,6 +52,13 @@ export default RightSide
 
 const Container = styled.div`
     grid-area: rightside;
+    position: relative;
+    width: 100%;
+    /* width: 250px; */
+    /* @media (min-width: 768px) and (max-width: 900px) {
+        width: 220px;   
+        padding: 0 5px;
+    } */
 `
 const FollowCard = styled.div`
     text-align: center;
@@ -64,7 +72,7 @@ const FollowCard = styled.div`
   padding: 12px;
 `
 const Title = styled.div`
-     display: inline-flex;
+  display: inline-flex;
   align-items: center;
   justify-content: space-between;
   font-size: 16px;

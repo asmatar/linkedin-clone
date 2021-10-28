@@ -3,28 +3,7 @@ export const SET_USER = 'SET_USER';
 export const SET_LOADING_STATUS = 'SET_LOADING_STATUS';
 export const GET_ARTICLES = 'GET_ARTICLES';
 
-//
-export const getArticles = (payload) => {
-    return {
-        type: 'GET_ARTICLES',
-        payload: payload
-    }
-}
-// function to set up the loading
-export const setLoading = (status) => {
-    return {
-        type: 'SET_LOADING_STATUS',
-        status: status
-    }
-}
 
-// login 4 : implémentation setPalad which goes into the reducer
-export const setUser = (payload) => {
-    return {
-        type: 'SET_USER',
-        user: payload
-    }
-}
 // we create a function signInAPI in the action creator which dispatch the native function of firebase 
 // when firebase response, we pass the payload
 // Login 4 . signInAPI is create and will do something... call the Api and return a payload, if success we dispatch another function ' setUser' with the payload
@@ -35,6 +14,13 @@ export function signInAPI() {
             dispatch(setUser(payload.user))
             // we'll dispatch the user we have
         }).catch ((error) => alert(error.message))
+    }
+}
+// login 4 : implémentation setPalad which goes into the reducer
+export const setUser = (payload) => {
+    return {
+        type: 'SET_USER',
+        user: payload
     }
 }
 // function n the useEffect
@@ -61,15 +47,15 @@ export function signOutAPI () {
 export function postArticleAPI (payload) {
     return (dispatch) => {
         dispatch(setLoading(true));
-
-        if (payload.image !== ''){
-           const upload = storage.ref(`image/${payload.image.name}`).put(payload.image);
+        
+        if (payload.image != ''){
+            const upload = storage.ref(`image/${payload.image.name}`).put(payload.image);
             upload.on('state_changed', (snapshot) => { 
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log(`progress: ${progress}%`);
+                if (snapshot.state === 'RUNNING'){
                     console.log(`progress: ${progress}%`);
-                    if (snapshot.state === 'RUNNING'){
-                        console.log(`progress: ${progress}%`);
-                    }
+                }
             }, error => console.log(error.code),
             async () => {
                 const downloadURL = await upload.snapshot.ref.getDownloadURL();
@@ -105,11 +91,11 @@ export function postArticleAPI (payload) {
         }
     }
 }
-
+// function to get the articles from the redux store
 export function getArticlesAPI () {
     return (dispatch) => {
         let payload;
-
+        
         db.collection('article')
         .orderBy('actor.date', 'desc')
         .onSnapshot((snapshot)=> {
@@ -117,5 +103,19 @@ export function getArticlesAPI () {
             console.log(payload)
             dispatch(getArticles(payload))
         })
+    }
+}
+// to catch the articles from the Api firestore
+export const getArticles = (payload) => {
+    return {
+        type: 'GET_ARTICLES',
+        payload: payload
+    }
+}
+// function to set up the loading
+export const setLoading = (status) => {
+    return {
+        type: 'SET_LOADING_STATUS',
+        status: status
     }
 }

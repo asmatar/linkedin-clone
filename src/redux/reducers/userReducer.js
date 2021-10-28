@@ -5,7 +5,6 @@ const InitialState = {
 };
 
 const userReducer = (state= InitialState, action) => {
-    console.log(InitialState)
     // login 5 . take the action we've imported and change the state
     switch (action.type){
         case SET_USER:

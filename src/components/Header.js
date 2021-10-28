@@ -23,42 +23,42 @@ function Header({user, signOut}) {
                 <Nav>
                     <NavListWrap>
                         <NavList className='active'>
-                            <a href="">
+                            <a href='/#'>
                                 <img src="/images/nav-home.svg" alt="" />
                                 <span>Home</span>
                             </a>
                         </NavList>
                         
                         <NavList>
-                            <a href="">
+                            <a href='/#'>
                                 <img src="/images/nav-jobs.svg" alt="" />
                                 <span>Jobs</span>
                             </a>
                         </NavList>
 
                         <NavList>
-                            <a href="">
+                            <a href='/#'>
                                 <img src="/images/nav-messaging.svg" alt="" />
                                 <span>Messaging</span>
                             </a>
                         </NavList>
 
                         <NavList>
-                            <a href="">
+                            <a href='/#'>
                                 <img src="/images/nav-network.svg" alt="" />
                                 <span> My Network</span>
                             </a>
                         </NavList>
 
                         <NavList>
-                            <a href="">
+                            <a href='/#'>
                                 <img src="/images/nav-notifications.svg" alt="" />
                                 <span>Notifications</span>
                             </a>
                         </NavList>
 
                         <User >
-                            <a>
+                            <a href='/#'>
                                 {/* if the user exist i wanna his photo, if not the standard photo */}
                                 { user && user.photoURL 
                                 ? 
@@ -76,7 +76,7 @@ function Header({user, signOut}) {
                         </User>
 
                         <Work>
-                            <a>
+                            <a href='/#'>
                                 <img src="/images/nav-work.svg" alt="" />
                                 <span>Work
                                 <img src="/images/down-icon.svg" alt="" />
@@ -108,11 +108,13 @@ const Container = styled.div`
     background-color: white;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     left: 0;
+    right: 0;
     padding: 0 24px;
     position: fixed;
     top: 0;
-    width: 100vw;
+    width: 100%;
     z-index: 100;
+    margin: 0 auto;
 `
 const Content = styled.div`
     display: flex;
@@ -166,11 +168,14 @@ const Nav = styled.nav`
     margin-left: auto;
     display: block;
     @media (max-width: 768px){
+        display: flex;
+        justify-content: center;
         position: fixed;
         left: 0;
         bottom: 0;
         background: white;
         width: 100%;
+        padding: 0 -24px;
     }
 `
 const NavListWrap = styled.ul`

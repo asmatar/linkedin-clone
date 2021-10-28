@@ -1,59 +1,97 @@
-import React from 'react';
+// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 const LeftSide = ({user}) => {
+  const [showMore, setShowMore] = useState(false)
+  console.log(showMore)
+  useEffect(() => {
+    console.log(window)
+    // if (window.innerWidth > 768){
+    //   setShowMore(true)
+    // }
+    window.addEventListener('resize', (event)=> {
+      if(event.currentTarget.innerWidth > 768){
+        setShowMore(true)
+      } else {
+        setShowMore(false)
+      }
+    })
+  }, [window.innerWidth])
     return (
         <Container>
             <ArtCard>
                 <UserInfo>
                     <CardBackground />
-                    <a>
+                    <a href='/#'>
                         <Photo />
                         <Link>Welcome { user ? user.displayName : 'there !' }
                         </Link>  
                     </a>
-                    <a>
+                    <a href='#'>
                         <AddPhotoText>
                             add a photo
                         </AddPhotoText>
-                    </a>
+                    </ a>
                 </UserInfo>
-                <Widget>
-                    <a>
-                      <div>
-                            <span>connection</span>
-                            <span>grow your nextwork</span>
-                      </div>
-                      <img src="/images/widget-icon.svg" alt="" />
-                    </a>
-                </Widget>
-                <Item>
-                    <span>
-                        <img src="/images/item-icon.svg" alt="" />
-                        My Items
-                    </span>
-                </Item>
+                {/* show more condition */}
+              {
+                showMore ? (<> <Widget>
+                  <a href='#'>
+                    <div>
+                          <span>connection</span>
+                          <span>grow your nextwork</span>
+                    </div>
+                    <img src="/images/widget-icon.svg" alt="widget-icon" />
+                  </a>
+              </Widget>
+              <Item>
+                  <span>
+                      <img src="/images/item-icon.svg" alt="widget" />
+                      My Items
+                  </span>
+              </Item></>) : ('')
+              }
+               
             </ArtCard>
-
-            <CommunityCard>
-                <a>
-                    <span>Groups</span>
+            {
+              showMore ? (<> <MyPages>
+                <h2>My pages</h2>
+                <a href='https://arthur-deruelle.netlify.app/' target='blank'>
+                  <p> My Portfolio</p>
                 </a>
-                <a>
-                    <span>
-                        Events
-                        <img src="/images/plus-icon.svg" alt="" />
-                    </span>
+                <a href='https://arthur-drl-amazon.netlify.app/' target='blank'>
+                <p> Amazon Clone</p>
                 </a>
-                <a>
-                    <span>Follow hashtag</span>
-                </a>
-                <a>
-                    <span>Discover more</span>
-                </a>
-            </CommunityCard>
-
+                
+              </MyPages>
+  
+              <CommunityCard>
+                  <a href='#'>
+                      <span>Groups</span>
+                  </a>
+                  <a href='#'>
+                      <span>
+                          Events
+                          <img src="/images/plus-icon.svg" alt="plus-icon" />
+                      </span>
+                  </a>
+                  <a href='#'>
+                      <span>Follow hashtag</span>
+                  </a>
+                  <a href='#'>
+                      <span>Discover more</span>
+                  </a>
+              </CommunityCard>
+              {/*  show more end */}
+              <ShowMore onClick={()=> setShowMore(!showMore)}>Show more 
+                {/* <ArrowDropDownIcon></ArrowDropDownIcon>  */}
+                </ShowMore></>) : ( <ShowMore onClick={()=> setShowMore(!showMore)}>Show more 
+              {/* <ArrowDropDownIcon></ArrowDropDownIcon>  */}
+              </ShowMore>)
+            }
+           
         </Container>
     )
 }
@@ -72,6 +110,11 @@ export default connect(mapStateToProps, mapDispatchToProps )(LeftSide)
 
 const Container = styled.div`
     grid-area: leftside;
+        /* @media (min-width: 768px) and (max-width: 900px) {
+            width: 220px;   
+        padding: 0 5px;
+    
+    } */
 `
 
 const ArtCard = styled.div`
@@ -97,7 +140,7 @@ const CardBackground = styled.div`
     background-position: center;
     background-size: 462px;
     height: 54px;
-    margin: -12px -12px 0
+    margin: -12px -12px 0;
 `
 const Photo = styled.div`
   box-shadow: none;
@@ -114,6 +157,7 @@ const Photo = styled.div`
   margin: -38px auto 12px;
   border-radius: 50%;
 `
+
 const Link = styled.div`
     font-size: 16px;
   line-height: 1.5;
@@ -178,8 +222,26 @@ const Item = styled.a`
     background-color: rgba(0, 0, 0, 0.08);
   }
 `
+const MyPages = styled(ArtCard)`
+  text-align: left;
+  padding: 4px 12px 4px 12px;
+  line-height: 20px;
+  margin-bottom: 8px;
+  h2{
+    margin-bottom: 8px;
+  }
+  a{
+    font-size: 12px;
+    color: red;
+    text-decoration:none;
+    font-weight: bold;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+`
 const CommunityCard = styled(ArtCard)`
-padding: 8px 0 0;
+  padding: 8px 0 0;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -204,5 +266,22 @@ padding: 8px 0 0;
         background-color: rgba(0, 0, 0, 0.08);
       }
     }
+    
   }
+`
+const ShowMore = styled.button`
+display: none;
+color: grey;
+font-weight: bold;
+background-color: #F3F2EF;
+width: 100%;
+border: none;
+font-size: 13px;
+padding: 5px 0;
+&:hover{
+  background-color: #E5E4E1 ;
+}
+@media(max-width: 768px) {
+  display: block;
+}
 `

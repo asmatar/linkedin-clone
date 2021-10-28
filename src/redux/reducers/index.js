@@ -7,4 +7,4 @@ const rootReducer = combineReducers({
     articleState: articleReducer
 })
 
-export default rootReducer;
+export default rootReducer

@@ -6,7 +6,6 @@ export const initialState = {
 }
 
 const articleReducer = (state= initialState, action) => {
-    console.log(initialState)
     // login 5 . take the action we've imported and change the state
     switch (action.type){
         case  GET_ARTICLES:

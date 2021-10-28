@@ -7,6 +7,7 @@ import Main from './Main'
 import RightSide from './RightSide'
 
 function Home({user}) {
+
     return (
         <Container>
             {
@@ -24,9 +25,8 @@ function Home({user}) {
             <Layout>
                 <LeftSide />
                 <Main />
-                <RightSide />
+                <RightSide />            
             </Layout>
-
         </Container>
     )
 }
@@ -44,15 +44,17 @@ export default connect (mapStateToProps, mapDispatchToProps )(Home)
 
 
 const Container = styled.div`
+    margin: 0 auto;
     padding-top: 52px;
-    max-width: 100%;
-`
+    max-width: 1100px;
+
+    `
 const Content = styled.div`
     max-width: 1128px;
     margin-left: auto;
     margin-right: auto;
-
-`
+    
+    `
 const Section = styled.section`
     min-height: 50px;
     padding: 16px 0;
@@ -73,12 +75,15 @@ const Section = styled.section`
         color: #434649;
         font-weight: 600;
     }
+    
+    
     @media (max-width: 768px) {
         flex-direction: column;
         padding: 0 5px;
     }
-`
+    `
 const Layout = styled.div`
+    position: relative;
     display: grid;
     grid-template-areas: 'leftside main rightside';
     grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
@@ -86,9 +91,11 @@ const Layout = styled.div`
     row-gap: 25px;
     grid-template-rows: auto;
     margin: 25px 0;
+    
     @media (max-width: 768px) {
         display: flex;
         flex-direction: column;
-        padding: 0 5px;
+        justify-content: space-around;
+        padding: 0 15px;
     }
 `
