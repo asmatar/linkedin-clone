@@ -48,8 +48,10 @@ export function signOutAPI () {
 export function postArticleAPI (payload) {
     return (dispatch) => {
         dispatch(setLoading(true));
-        
-        if (payload.image != ''){
+        if (payload.image // si y'a une image
+            // != ''  
+            ){
+                console.log('dans image payload')
             const upload = storage.ref(`image/${payload.image.name}`).put(payload.image);
             upload.on('state_changed', (snapshot) => { 
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -76,7 +78,9 @@ export function postArticleAPI (payload) {
                 dispatch(setLoading(false))
             }
             );
-        } else if (payload.video) {
+        }
+        //  else 
+        if (payload.video) {
             db.collection('article').add({
                 actor: {
                     description: payload.user.email,
@@ -85,6 +89,21 @@ export function postArticleAPI (payload) {
                     image: payload.user.photoURL,
                 },
                 video: payload.video,
+                haredImg: '',
+                comments: 0,
+                description: payload.description,
+                like: 0
+            })
+            dispatch(setLoading(false))
+        } else if(payload.description && payload.image  === ''){
+            db.collection('article').add({
+                actor: {
+                    description: payload.user.email,
+                    title: payload.user.displayName,
+                    date: payload.timestamp,
+                    image: payload.user.photoURL,
+                },
+                video: '',
                 haredImg: '',
                 comments: 0,
                 description: payload.description,
