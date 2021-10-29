@@ -17,7 +17,7 @@ const Main = ({user, loading, getArticles, articles, handleLike}) => {
 
     // modal 2. On click we exécute this code
     const handleClick = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
         // if showMdal is 'open' we change the value to 'close'
         switch(showModal) {
             case 'open':
@@ -38,7 +38,7 @@ const Main = ({user, loading, getArticles, articles, handleLike}) => {
         <>
         {
             articles.length === 0 ? (
-            <p>there are no articles</p>)
+            <p>Articles are loading</p>)
             :(
         <Container>
             <ShareBox>  
@@ -58,11 +58,13 @@ const Main = ({user, loading, getArticles, articles, handleLike}) => {
               
                 <button>
                     <img src="/images/photo-icon.png" alt="" />
-                    <span>Photo</span>
+                    <span onClick = {()=>handleClick()}
+                disabled={loading ? true : false}>Photo</span>
                 </button>
                 <button>
                     <img src="/images/video-icon.png" alt="" />
-                    <span>Video</span>
+                    <span  onClick = {()=>handleClick()}
+                disabled={loading ? true : false}>Video</span>
                 </button>
                 <button>
                     <img src="/images/even-icon.png" alt="" />
@@ -70,7 +72,8 @@ const Main = ({user, loading, getArticles, articles, handleLike}) => {
                 </button>
                 <button>
                     <img src="/images/article-icon.png" alt="" />
-                    <span>Write article</span>
+                    <span  onClick = {()=>handleClick()}
+                disabled={loading ? true : false}>Write article</span>
                 </button>
             </div>
             </ShareBox>
@@ -203,6 +206,11 @@ const ShareBox = styled(CommonCard)`
             display: flex;
             align-items: center;
             font-weight: 600;
+            &:hover{
+                transition: background-color 0.5s;
+                background-color: rgba(209,207,208,0.8);
+                cursor: pointer;
+            }
         }
         &:first-child{
             display: flex;
