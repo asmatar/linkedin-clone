@@ -2,6 +2,7 @@ import db, { auth, provider, storage } from '../../firebase';
 export const SET_USER = 'SET_USER';
 export const SET_LOADING_STATUS = 'SET_LOADING_STATUS';
 export const GET_ARTICLES = 'GET_ARTICLES';
+export const GET_FRIENDS = 'GET_FRIENDS';
 
 
 // we create a function signInAPI in the action creator which dispatch the native function of firebase 
@@ -69,7 +70,8 @@ export function postArticleAPI (payload) {
                     video: payload.video,
                     haredImg: downloadURL,
                     comments: 0,
-                    description: payload.description
+                    description: payload.description,
+                    like: 0
                 })
                 dispatch(setLoading(false))
             }
@@ -85,7 +87,8 @@ export function postArticleAPI (payload) {
                 video: payload.video,
                 haredImg: '',
                 comments: 0,
-                description: payload.description
+                description: payload.description,
+                like: 0
             })
             dispatch(setLoading(false))
         }
@@ -117,5 +120,33 @@ export const setLoading = (status) => {
     return {
         type: 'SET_LOADING_STATUS',
         status: status
+    }
+}
+
+export const handleLikeUp =(id) => {
+    console.log('dans handle like up')
+    db.collection('article').doc(id).update({
+        // like
+    })
+}
+
+
+export function getFriendAPI () {
+    return (dispatch) => {
+        let payload;
+        
+        db.collection('friend')
+        .onSnapshot((snapshot)=> {
+            payload = snapshot.docs.map((doc)=> doc.data());
+            console.log(payload)
+            dispatch(getFriend(payload))
+        })
+    }
+}
+
+export const getFriend = (payload) => {
+    return {
+        type: 'GET_FRIENDS',
+        payload: payload
     }
 }

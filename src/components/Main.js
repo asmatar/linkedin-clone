@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { getArticlesAPI } from '../redux/actions';
+import { getArticlesAPI, handleLikeUp } from '../redux/actions';
 import PostModal from './PostModal';
-const Main = ({user, loading, getArticles, articles}) => {
+
+const Main = ({user, loading, getArticles, articles, handleLike}) => {
 
 
     // modal 0: state for the modal, close
@@ -49,11 +50,12 @@ const Main = ({user, loading, getArticles, articles}) => {
             }
                 <button
                 // modal 1 : on click we call handleclick
-                onClick = {handleClick}
+                onClick = {()=>handleClick()}
                 disabled={loading ? true : false}
                 >Start a post</button>
             </div>
             <div>
+              
                 <button>
                     <img src="/images/photo-icon.png" alt="" />
                     <span>Photo</span>
@@ -109,19 +111,22 @@ const Main = ({user, loading, getArticles, articles}) => {
                     <SocialCounts>
                         <li>
                             <button>
+                                <span>{article.like} </span>
                                 <img src="https://static-exp1.licdn.com/sc/h/d310t2g24pvdy4pt1jkedo4yb" alt="" />
-                                <img src="https://static-exp1.licdn.com/sc/h/5thsbmikm6a8uov24ygwd914f" alt="" />
-                                <span>75</span>
+                                {/* <span>75</span>
+                                <img src="https://static-exp1.licdn.com/sc/h/5thsbmikm6a8uov24ygwd914f" alt="" /> */}
+                                
                             </button>
                         </li>
                         <li>
-                            <a>{article.comments}</a>
+                            <a>{article.comments} comments</a>
                         </li>
                     </SocialCounts>
                     <SocialAction>
                         <button>
+                           {/* { console.log(article.id)}  */}
                             <img src="/images/like-icon.png" alt="" />
-                            <span>Like</span>
+                            <span onClick={()=>console.log(article.id)}>Like</span>
                         </button>
                         <button>
                             <img src="/images/comment-icon.png" alt="" />
@@ -157,7 +162,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getArticles: () => dispatch(getArticlesAPI())
+        getArticles: () => dispatch(getArticlesAPI()),
+        handleLike: (id) => dispatch(handleLikeUp(id))
     }
 }
 

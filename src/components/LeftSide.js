@@ -4,13 +4,9 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 const LeftSide = ({user}) => {
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState(true)
   console.log(showMore)
   useEffect(() => {
-    console.log(window)
-    // if (window.innerWidth > 768){
-    //   setShowMore(true)
-    // }
     window.addEventListener('resize', (event)=> {
       if(event.currentTarget.innerWidth > 768){
         setShowMore(true)
@@ -18,14 +14,16 @@ const LeftSide = ({user}) => {
         setShowMore(false)
       }
     })
-  }, [window.innerWidth])
+  }, [])
     return (
         <Container>
             <ArtCard>
                 <UserInfo>
                     <CardBackground />
                     <a href='/#'>
-                        <Photo />
+                        <Photo>
+                          <img src={user && user.photoURL ? user.photoURL : 'nobody'} alt="" />
+                        </Photo>
                         <Link>Welcome { user ? user.displayName : 'there !' }
                         </Link>  
                     </a>
@@ -143,9 +141,9 @@ const CardBackground = styled.div`
     margin: -12px -12px 0;
 `
 const Photo = styled.div`
-  box-shadow: none;
-  background-image: url("/images/photo.svg");
-  width: 72px;
+  img{
+    box-shadow: none;
+      width: 72px;
   height: 72px;
   box-sizing: border-box;
   background-clip: content-box;
@@ -156,6 +154,9 @@ const Photo = styled.div`
   border: 2px solid white;
   margin: -38px auto 12px;
   border-radius: 50%;
+  }
+  /* background-image: url("/images/photo.svg"); */
+
 `
 
 const Link = styled.div`
