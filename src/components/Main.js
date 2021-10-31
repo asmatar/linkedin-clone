@@ -110,7 +110,7 @@ console.log(articles)
                         </button>
                     </SharedActor>
                     <Description>
-                    {article.description}
+                    {article.info.description}
                     </Description>
                     <SharedImg>
                         <a>
