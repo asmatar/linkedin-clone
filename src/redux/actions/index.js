@@ -74,6 +74,8 @@ export function postArticleAPI (payload) {
                     comments: 0,
                     description: payload.description,
                     like: 0
+                }).then(docRef => {
+                    console.log('reference id de la data creer', docRef.id)
                 })
                 dispatch(setLoading(false))
             }
@@ -117,12 +119,14 @@ export function postArticleAPI (payload) {
 export function getArticlesAPI () {
     return (dispatch) => {
         let payload;
-        
         db.collection('article')
         .orderBy('actor.date', 'desc')
         .onSnapshot((snapshot)=> {
-            payload = snapshot.docs.map((doc)=> doc.data());
-            console.log(payload)
+            payload = snapshot.docs.map((doc)=> (
+                {
+                    info:doc.data(), 
+                    id:doc.id}
+                ));
             dispatch(getArticles(payload))
         })
     }
@@ -142,12 +146,12 @@ export const setLoading = (status) => {
     }
 }
 
-export const handleLikeUp =(id) => {
-    console.log('dans handle like up')
-    db.collection('article').doc(id).update({
-        // like
-    })
-}
+// export const handleLikeUp = async (id) => {
+//     console.log('dans handle like up')
+//     return db.collection('article').doc(id).update({
+//         // like
+//     })
+// }
 
 
 export function getFriendAPI () {

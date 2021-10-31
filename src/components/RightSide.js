@@ -9,7 +9,7 @@ const RightSide = ({getFriend, friends}) => {
    
     getFriend()
   }, [])
-  console.log(friends)
+
   let listee = friends.sort(() => Math.random() - 0.5).slice(0,3)
   return (
         <Container>

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const LeftSide = ({user}) => {
   const [showMore, setShowMore] = useState(true)
-  console.log(showMore)
+
   useEffect(() => {
     window.addEventListener('resize', (event)=> {
       if(event.currentTarget.innerWidth > 768){

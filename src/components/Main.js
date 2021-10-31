@@ -1,12 +1,15 @@
+import firebase from 'firebase';
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { getArticlesAPI, handleLikeUp } from '../redux/actions';
+import db from '../firebase';
+import { getArticlesAPI } from '../redux/actions';
 import PostModal from './PostModal';
-
-const Main = ({user, loading, getArticles, articles, handleLike}) => {
-
+const Main = ({user, loading, getArticles, articles, 
+    // handleLike
+}) => {
+console.log(articles)
 
     // modal 0: state for the modal, close
     const[showModal, setShowModal] =useState('close')
@@ -33,7 +36,14 @@ const Main = ({user, loading, getArticles, articles, handleLike}) => {
             break
         }
     }
-
+    const increment = firebase.firestore.FieldValue.increment(1);
+    const handleLike = (id) => {
+        console.log('dans handle like up avec id', id )
+         db.collection('article').doc(id).update({
+            // like: parseInt(4)
+            like: increment
+        })
+    }
     return (
         <>
         {
@@ -83,15 +93,16 @@ const Main = ({user, loading, getArticles, articles, handleLike}) => {
                 }
                 {
                     articles.length > 0 && articles.map((article, key) => (
-           
                 <Article key={key}>
+                   { console.log(article.info.actor.image)}
+                 
                     <SharedActor>
                         <a>
-                            <img src={article.actor.image} alt="" />
+                            <img src={article.info.actor.image} alt="" />
                             <div>
-                                <span>{article.actor.title}</span>
-                                <span>{article.actor.description}</span>
-                                <span>{article.actor.date.toDate().toLocaleDateString()}</span>
+                                <span>{article.info.actor.title}</span>
+                                <span>{article.info.actor.description}</span>
+                                <span>{article.info.actor.date.toDate().toLocaleDateString()}</span>
                             </div>
                         </a>
                         <button>
@@ -104,9 +115,9 @@ const Main = ({user, loading, getArticles, articles, handleLike}) => {
                     <SharedImg>
                         <a>
                         {
-                           !article.haredImg && article.video ? <ReactPlayer width={'100%'} url={article.video} />
+                           !article.info.haredImg && article.info.video ? <ReactPlayer width={'100%'} url={article.info.video} />
                         : (
-                            article.haredImg && <img src={article.haredImg} alt="" />
+                            article.info.haredImg && <img src={article.info.haredImg} alt="" />
                         ) 
                         }
                         </a>
@@ -114,7 +125,7 @@ const Main = ({user, loading, getArticles, articles, handleLike}) => {
                     <SocialCounts>
                         <li>
                             <button>
-                                <span>{article.like} </span>
+                                <span>{article.info.like} </span>
                                 <img src="https://static-exp1.licdn.com/sc/h/d310t2g24pvdy4pt1jkedo4yb" alt="" />
                                 {/* <span>75</span>
                                 <img src="https://static-exp1.licdn.com/sc/h/5thsbmikm6a8uov24ygwd914f" alt="" /> */}
@@ -122,14 +133,16 @@ const Main = ({user, loading, getArticles, articles, handleLike}) => {
                             </button>
                         </li>
                         <li>
-                            <a>{article.comments} comments</a>
+                            <a>{article.info.comments} comments</a>
                         </li>
                     </SocialCounts>
                     <SocialAction>
                         <button>
                            {/* { console.log(article.id)}  */}
                             <img src="/images/like-icon.png" alt="" />
-                            <span onClick={()=>console.log(article.id)}>Like</span>
+                            <span onClick={(event)=>
+        
+                                handleLike(article.id)}>Like</span>
                         </button>
                         <button>
                             <img src="/images/comment-icon.png" alt="" />
@@ -166,7 +179,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getArticles: () => dispatch(getArticlesAPI()),
-        handleLike: (id) => dispatch(handleLikeUp(id))
+        // handleLike: (id) => dispatch(handleLikeUp(id))
     }
 }
 
