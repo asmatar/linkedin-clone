@@ -73,7 +73,8 @@ export function postArticleAPI (payload) {
                     haredImg: downloadURL,
                     comments: 0,
                     description: payload.description,
-                    like: 0
+                    like: 0,
+                    post: false
                 }).then(docRef => {
                     console.log('reference id de la data creer', docRef.id)
                 })
@@ -145,13 +146,6 @@ export const setLoading = (status) => {
         status: status
     }
 }
-
-// export const handleLikeUp = async (id) => {
-//     console.log('dans handle like up')
-//     return db.collection('article').doc(id).update({
-//         // like
-//     })
-// }
 
 
 export function getFriendAPI () {

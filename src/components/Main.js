@@ -13,7 +13,13 @@ console.log(articles)
 
     // modal 0: state for the modal, close
     const[showModal, setShowModal] =useState('close')
+    const[showComment, setShowComment] =useState(false)
+    console.log(showComment)
 
+    const handleShowComment = (id) => {
+        console.log('identtoé numero', id)
+        setShowComment(!showComment)
+    }
     useEffect(()=> {
         getArticles()
     }, [])
@@ -144,9 +150,13 @@ console.log(articles)
         
                                 handleLike(article.id)}>Like</span>
                         </button>
-                        <button>
-                            <img src="/images/comment-icon.png" alt="" />
-                            <span>Comments</span>
+                        <button onClick={()=> handleShowComment(article.id)}>
+                            <img src="/images/comment-icon.png" alt="" 
+                             />
+                            <span
+                           >
+                            Comments
+                            </span>
                         </button>
                         <button>
                             <img src="/images/share-icon.png" alt="" />
@@ -157,6 +167,16 @@ console.log(articles)
                             <span>Send</span>
                         </button>
                     </SocialAction>
+                   {
+                       showComment &&
+                       <Comments>    
+                        <img src={user.photoURL} alt="" />
+                        <AddComment placeholder='add a comment'>
+                        </AddComment>
+                        <button type='submit'> send</button>
+                        </Comments>
+                   }
+                    
                 </Article>
                     ))}
             </Content>
@@ -185,6 +205,37 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect (mapStateToProps,mapDispatchToProps )(Main) 
 
+const Comments = styled.div`
+display: flex;
+align-items: center;
+    text-align: left;
+    img{
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        margin-left: 21px;
+        margin-bottom: 8px;
+    }
+    button{
+        margin-left: 10px;
+        border: none;
+        &:hover{
+            color: grey;
+        }
+    }
+`
+const AddComment = styled.input`
+      padding: 16px;
+      align-items: center;
+      border-radius: 45px;
+      box-sizing: border-box;
+      max-height: 32px;
+      width: 65%;
+      margin-bottom: 10px;
+      margin-top: 5px;
+      margin-left: 10px;
+
+`
 
 const Container = styled.div`
     grid-area: main;
