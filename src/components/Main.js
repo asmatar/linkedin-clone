@@ -13,42 +13,43 @@ console.log(articles)
 
     // modal 0: state for the modal, close
     const[showModal, setShowModal] =useState('close')
-    const[showComment, setShowComment] =useState(false)
-    console.log(showComment)
+    // const[showComment, setShowComment] =useState(false)
+    // console.log(showComment)
 
-    const handleShowComment = (id) => {
-        console.log('identtoé numero', id)
-        setShowComment(!showComment)
-    }
     useEffect(()=> {
         getArticles()
     }, [])
-
+    
     // modal 2. On click we exécute this code
     const handleClick = (event) => {
         // event.preventDefault();
         // if showMdal is 'open' we change the value to 'close'
         switch(showModal) {
             case 'open':
-            setShowModal('close');
-            break;
-               // if showMdal is 'close' we change the value to 'open'
-            case 'close':
-            setShowModal('open');
-            break;
-            // by default it's 'close'
-            default:
-            setShowModal('close')
-            break
-        }
-    }
-    const increment = firebase.firestore.FieldValue.increment(1);
-    const handleLike = (id) => {
-        console.log('dans handle like up avec id', id )
-         db.collection('article').doc(id).update({
-            // like: parseInt(4)
+                setShowModal('close');
+                break;
+                // if showMdal is 'close' we change the value to 'open'
+                case 'close':
+                    setShowModal('open');
+                    break;
+                    // by default it's 'close'
+                    default:
+                        setShowModal('close')
+                        break
+                    }
+                }
+                const increment = firebase.firestore.FieldValue.increment(1);
+                const handleLike = (id) => {
+                    db.collection('article').doc(id).update({
+                        // like: parseInt(4)
             like: increment
         })
+    }
+    const handleShowComment = (id, post) => {
+        console.log(post)
+        db.collection('article').doc(id).update({
+        post : !post
+    })
     }
     return (
         <>
@@ -147,10 +148,9 @@ console.log(articles)
                            {/* { console.log(article.id)}  */}
                             <img src="/images/like-icon.png" alt="" />
                             <span onClick={(event)=>
-        
                                 handleLike(article.id)}>Like</span>
                         </button>
-                        <button onClick={()=> handleShowComment(article.id)}>
+                        <button onClick={()=> handleShowComment(article.id, article.info.post)}>
                             <img src="/images/comment-icon.png" alt="" 
                              />
                             <span
@@ -168,7 +168,7 @@ console.log(articles)
                         </button>
                     </SocialAction>
                    {
-                       showComment &&
+                       article.info.post &&
                        <Comments>    
                         <img src={user.photoURL} alt="" />
                         <AddComment placeholder='add a comment'>
