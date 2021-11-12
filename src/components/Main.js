@@ -270,6 +270,7 @@ const Container = styled.div`
     grid-area: main;
     position: relative;
     /* width: 538px; */
+    min-width: 360px;
 `
 const CommonCard = styled.div`
     text-align: center;
@@ -455,7 +456,10 @@ const SocialAction = styled.div`
         color: #0a66c2;
         border: none;
         background-color: white;
-
+        @media (max-width: 768px) {
+            /* margin-left: 8px; */
+            /* font-size: 0.7rem; */
+        }
         @media (min-width: 768px) {
             margin-left: 8px;
         }
@@ -466,6 +470,7 @@ const SocialAction = styled.div`
 `
 const Content = styled.div`
     text-align: center;
+    
     & > img {
         width: 30px;
     }

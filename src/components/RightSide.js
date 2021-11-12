@@ -67,15 +67,19 @@ export default connect (mapStateToProps,mapDispatchToProps )(RightSide)
 const Container = styled.div`
     grid-area: rightside;
     position: relative;
-    width: 100%;
+    /* width: 100%; */
     /* width: 250px; */
     /* @media (min-width: 768px) and (max-width: 900px) {
         width: 220px;   
         padding: 0 5px;
     } */
+    @media (max-width: 886px){
+      /* width: 80%; */
+      /* margin-left:8px; */
+    }
 `
 const FollowCard = styled.div`
-    text-align: center;
+  text-align: center;
   overflow: hidden;
   margin-bottom: 8px;
   background-color: #fff;
