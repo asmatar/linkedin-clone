@@ -44,6 +44,17 @@ export function signOutAPI () {
         })
     }
 }
+// export function postComentAPI (payload, id){
+//             console.log('post comment ap')
+//                db.collection('article').add({
+//                     postComment:{
+//                         pic: payload.user.photoURL,
+//                         titleCom: payload.user.displayName,
+//                         texte : payload.texte
+//                     }
+//                 })
+// }
+
 // function to upload photo in fireaseStorage
 export function postArticleAPI (payload) {
     return (dispatch) => {
@@ -74,7 +85,8 @@ export function postArticleAPI (payload) {
                     comments: 0,
                     description: payload.description,
                     like: 0,
-                    post: false
+                    post: false,
+                    postComment:{}
                 }).then(docRef => {
                     console.log('reference id de la data creer', docRef.id)
                 })
@@ -95,7 +107,9 @@ export function postArticleAPI (payload) {
                 haredImg: '',
                 comments: 0,
                 description: payload.description,
-                like: 0
+                like: 0,
+                post: false,
+                postComment:{}
             })
             dispatch(setLoading(false))
         } else if(payload.description && payload.image  === ''){
@@ -110,7 +124,9 @@ export function postArticleAPI (payload) {
                 haredImg: '',
                 comments: 0,
                 description: payload.description,
-                like: 0
+                like: 0,
+                post: false,
+                postComment:{}
             })
             dispatch(setLoading(false))
         }

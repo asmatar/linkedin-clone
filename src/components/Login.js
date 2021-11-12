@@ -134,10 +134,10 @@ const Hero = styled.div`
     color: #2977c9;
     font-weight: 200;
     line-height: 70px;
-    @media (max-width:1030px) and (min-width:769px) {
+    @media (max-width:1024px) and (min-width:769px) {
         padding-bottom: 0;
         width: 55%;
-        font-size: 50px;
+        font-size: 45px;
         color: #2977c9;
         font-weight: 200;
         line-height: 70px;
@@ -151,16 +151,24 @@ const Hero = styled.div`
   }
   img { 
     /* z-index: -1; */
+    /* width: 700px;
+    height: 670px; */
     width: 700px;
     height: 670px;
     position: absolute;
     bottom: -2px;
     right: -50px;
+    @media (max-width:1024px) and (min-width:769px) {
+    width: 670px;
+    height: 620px;
+    }
     @media (max-width: 768px) {
-      top: 230px;
-      width: initial;
+    width: 600px;
+    height: 550px;
+    left: 50%;
+    margin: 20px auto 0;
       position: initial;
-      height: initial;
+      /* height: initial;  */
     /* top: 230px;
       width: initial;
       position: initial;
@@ -172,12 +180,18 @@ const Hero = styled.div`
 const Form = styled.div`
   margin-top: 100px;
   width: 408px;
+  @media (max-width:1024px) and (min-width:769px) {
+  width:70%
+  }
   @media (max-width: 768px) {
     margin: 20px auto 0;
   }
 `;
 
 const Google = styled.button`
+  @media (max-width:1024px) and (min-width:769px) {
+  width:40%
+  }
   display: flex;
   justify-content: center;
   background-color: #fff;

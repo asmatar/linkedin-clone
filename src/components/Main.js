@@ -6,13 +6,13 @@ import styled from 'styled-components';
 import db from '../firebase';
 import { getArticlesAPI } from '../redux/actions';
 import PostModal from './PostModal';
-const Main = ({user, loading, getArticles, articles, 
+const Main = ({user, loading, getArticles, articles
     // handleLike
 }) => {
 console.log(articles)
 
     // modal 0: state for the modal, close
-    const[showModal, setShowModal] =useState('close')
+    const[showModal, setShowModal] = useState('close')
     // const[showComment, setShowComment] =useState(false)
     // console.log(showComment)
 
@@ -46,11 +46,33 @@ console.log(articles)
         })
     }
     const handleShowComment = (id, post) => {
-        console.log(post)
         db.collection('article').doc(id).update({
-        post : !post
-    })
+            post : !post
+        })
     }
+//     const [commentValue, setCommentValue] = useState('')
+
+//     const changeComment = (event, commentValue, id) => {
+//         event.preventDefault();
+//         console.log('dans change comment',commentValue)
+//         console.log('dans change comment',id)
+//         const payload = {
+//            texte : commentValue,
+//            user: user
+//         };
+//         postComent(payload);
+//         // setCommentValue('')
+//     }
+//      function postComent (payload, id){
+//         console.log('post comment ap')
+//            db.collection('article').doc(id).setData({
+//                 postComment:{
+//                     pic: payload.user.photoURL,
+//                     titleCom: payload.user.displayName,
+//                     texte : payload.texte
+//                 }
+//             },merge = true )
+// }
     return (
         <>
         {
@@ -171,9 +193,16 @@ console.log(articles)
                        article.info.post &&
                        <Comments>    
                         <img src={user.photoURL} alt="" />
-                        <AddComment placeholder='add a comment'>
+                        <AddComment placeholder='add a comment'
+                        //  value = {commentValue}
+                        //  onChange={(event) => setCommentValue(event.target.value)}
+                        >
                         </AddComment>
-                        <button type='submit'> send</button>
+                        <button type='submit'
+                        // onClick={(event)=>
+                        // // console.log('just de clicker'),
+                        // changeComment(event, commentValue, article.id)}
+                        > send</button>
                         </Comments>
                    }
                     
@@ -199,7 +228,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getArticles: () => dispatch(getArticlesAPI()),
-        // handleLike: (id) => dispatch(handleLikeUp(id))
+        // postComent: (payload) => dispatch(postComentAPI(payload))
     }
 }
 
