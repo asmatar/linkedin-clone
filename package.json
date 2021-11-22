@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@badrap/bar-of-progress": "^0.1.2",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.0.5",
@@ -16,6 +17,7 @@
     "react-player": "^2.9.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
+    "react-router-loading": "^0.4.0",
     "react-scripts": "4.0.3",
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",

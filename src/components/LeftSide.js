@@ -62,7 +62,15 @@ const LeftSide = ({user}) => {
                 <a href='https://arthur-drl-amazon.netlify.app/' target='blank'>
                 <p> Amazon Clone</p>
                 </a>
-                
+                <a href='https://art-restaurant-finder.netlify.app/' target='blank'>
+                <p> Restaurant-finder</p>
+                </a>
+                <a href='https://ainbnb-9dz94667o-asmatar.vercel.app/' target='blank'>
+                <p> AirBnb</p>
+                </a>
+                <a href='https://netflix-geodev.web.app/' target='blank'>
+                <p> Netflix</p>
+                </a>
               </MyPages>
   
               <CommunityCard>

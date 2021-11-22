@@ -5,8 +5,10 @@ import styled from 'styled-components';
 import { signInAPI } from '../redux/actions';
 
 //Login 2 : we pass it on props
+
 function Login({signIn, user}) {
-    return (
+
+  return (
         <Container>
             {
                 user && <Redirect to = '/home' />
@@ -35,6 +37,7 @@ function Login({signIn, user}) {
             </Section>
         </Container>
     )
+    
 }
 const mapStateToProps = (state) => {
     return {
