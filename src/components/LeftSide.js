@@ -68,7 +68,7 @@ const LeftSide = ({user}) => {
                 <a href='https://ainbnb-9dz94667o-asmatar.vercel.app/' target='blank'>
                 <p> AirBnb</p>
                 </a>
-                <a href='https://netflix-geodev.web.app/' target='blank'>
+                <a href='https://netflix-clone-asmatar.vercel.app/' target='blank'>
                 <p> Netflix</p>
                 </a>
               </MyPages>
